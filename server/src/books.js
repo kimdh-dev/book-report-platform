@@ -21,6 +21,7 @@ router.get("/search", (req, res) => {
       pageNum: 1,
       pageSize: 10,
       systemType: "오프라인자료",
+      category: "도서",
       order: "asc",
       apiType: "json",
     };

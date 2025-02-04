@@ -1,47 +1,64 @@
+import React, { useState } from "react";
+import {
+  Button,
+  Container,
+  Nav,
+  Navbar,
+  InputGroup,
+  Form,
+  NavDropdown,
+} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/style.css";
 import { Link } from "react-router-dom";
 
 function Head({ isLoggedIn }) {
+  const searchClicked = () => {
+    console.log("button clicked");
+    return;
+  };
   return (
-    <header className="bg-blue-600 shadow-lg">
-      <nav className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-white text-2xl font-bold">독서록 플랫폼</h1>
-          <ul className="flex space-x-6 text-white">
-            <li>
-              <Link to="/" className="hover:text-gray-200">
-                책 검색
-              </Link>
-            </li>
-            <li>
-              <Link to="/popular-logs" className="hover:text-gray-200">
-                인기 독서록
-              </Link>
-            </li>
-            <li>
-              <Link to="/reading-logs" className="hover:text-gray-200">
-                나의 독서록
-              </Link>
-            </li>
-          </ul>
-
-          {/* 로그인/내 정보 버튼 */}
-          <div className="flex items-center space-x-6">
-            {isLoggedIn ? (
-              <>
-                <Link to="/profile" className="text-white hover:text-gray-200">
-                  내 정보
-                </Link>
-                <button className="text-white hover:text-gray-200">
-                  로그아웃
-                </button>
-              </>
-            ) : (
-              <button className="text-white hover:text-gray-200">로그인</button>
-            )}
-          </div>
-        </div>
-      </nav>
-    </header>
+    <div>
+      <Navbar expand="lg" className="bg-body-tertiary">
+        <Container>
+          <Navbar.Brand href="#home">Book Report</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <InputGroup className="search-group">
+                <Form.Control type="text" placeholder="검색" />
+                <Button
+                  className="searchBtnWrap"
+                  onclick={searchClicked}
+                  style={{
+                    cursor: "pointer",
+                    width: "50px",
+                    border: "1px solid #000000",
+                    borderRadius: "5px",
+                  }}
+                  variant="light"
+                >
+                  <img src="/img/icon/search.png" style={{ width: "100%" }} />
+                </Button>
+              </InputGroup>
+            </Nav>
+            <Nav>
+              <Nav.Item>
+                <Nav.Link className="cursor">
+                  <div className="user">
+                    <img
+                      src="/img/icon/user.png"
+                      alt="프로필"
+                      style={{ width: "40px", height: "40px" }}
+                    />
+                  </div>
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </div>
   );
 }
 

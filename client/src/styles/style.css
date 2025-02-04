@@ -1,0 +1,7 @@
+.user {
+  padding: 5px;
+}
+
+.user:hover {
+  background-color: #ddd;
+}

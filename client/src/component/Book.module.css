@@ -1,0 +1,29 @@
+.bookCard {
+  background-color: #ffffff;
+}
+
+.bookImgWrap {
+  height: auto;
+  text-align: center;
+  padding: 10px 10px;
+}
+
+.bookImg {
+  height: 250px;
+  object-fit: contain;
+  width: 100%;
+}
+
+.bookName {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bookAuthor {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

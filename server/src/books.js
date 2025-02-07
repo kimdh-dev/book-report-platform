@@ -13,6 +13,9 @@ const REQ_HEADER = {
 const API_KEY = process.env.API_KEY;
 
 const ALADIN_API_BASE_URL = "https://www.aladin.co.kr/ttb/api/ItemList.aspx";
+const ALADIN_API_SEARCH_URL = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx";
+const ALADIN_API_INFO_URL = "http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx";
+
 const ALADIN_API_KEY = process.env.ALADIN_API_KEY;
 
 const fetchData = async (url, headers = {}) => {
@@ -26,9 +29,10 @@ const fetchData = async (url, headers = {}) => {
 
 // 알라딘 베스트셀러 조회
 router.get("/bestseller", async (req, res) => {
-  const page = req.query.page;
+  const size = req.query.size || 50;
+  const page = req.query.page || 1;
   const Q_TYPE = "Bestseller";
-  const REQ_URL = `${ALADIN_API_BASE_URL}?ttbkey=${ALADIN_API_KEY}&QueryType=${Q_TYPE}&MaxResults=100&start=${page}&SearchTarget=Book&output=js&Cover=Big&CategoryId&Version=20131101`;
+  const REQ_URL = `${ALADIN_API_BASE_URL}?ttbkey=${ALADIN_API_KEY}&QueryType=${Q_TYPE}&MaxResults=${size}&start=${page}&SearchTarget=Book&output=js&Cover=Big&CategoryId&Version=20131101`;
   try {
     const data = await fetchData(REQ_URL, REQ_HEADER);
     res.json(data);
@@ -37,8 +41,38 @@ router.get("/bestseller", async (req, res) => {
   }
 });
 
-// 책 검색 API (소장자료 검색) - TEST: http://localhost:5000/api/search?keyword=시한부
-router.get("/search", (req, res) => {
+// 알라딘 책 검색
+router.get("/search", async (req, res) => {
+  const keyword = req.query.keyword;
+  const size = req.query.size || 50;
+  const page = req.query.page || 1;
+  const Q_TYPE = "Keyword";
+  const REQ_URL = `${ALADIN_API_SEARCH_URL}?ttbkey=${ALADIN_API_KEY}&Query=${keyword}&QueryType=${Q_TYPE}&MaxResults=${size}&start=${page}&SearchTarget=Book&output=js&Cover=Big&Version=20131101`;
+  try {
+    const data = await fetchData(REQ_URL, REQ_HEADER);
+    res.json(data);
+  } catch (error) {
+    req.status(500).json({ error: error.message });
+  }
+});
+
+// 알라딘 책 정보
+router.get("/info", async (req, res) => {
+  const isbn = req.query.isbn;
+
+  const REQ_URL = `${ALADIN_API_INFO_URL}?ttbkey=${ALADIN_API_KEY}&itemIdType=ISBN13&ItemId=${isbn}&Cover=big&output=js&Version=20131101&OptResult=ebookList,usedList,reviewList`;
+  try {
+    const data = await fetchData(REQ_URL, REQ_HEADER);
+    res.json(data);
+  } catch (error) {
+    req.status(500).json({ error: error.message });
+  }
+});
+
+//
+
+// 책 검색 API (소장자료 검색) - TEST: http://localhost:5000/api/search_nl?keyword=시한부
+router.get("/search_nl", (req, res) => {
   try {
     const keyword = req.query.keyword;
     if (!keyword) {
@@ -78,8 +112,8 @@ router.get("/search", (req, res) => {
   }
 });
 
-// 서지정보 API - TEST: http://localhost:5000/api/seoji?isbn=9791193647646
-router.get("/seoji", (req, res) => {
+// 서지정보 API - TEST: http://localhost:5000/api/seoji_nl?isbn=9791193647646
+router.get("/seoji_nl", (req, res) => {
   try {
     const isbn = req.query.isbn;
     if (!isbn) {

@@ -10,13 +10,23 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/style.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Head({ isLoggedIn }) {
-  const searchClicked = () => {
-    console.log("button clicked");
-    return;
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState("");
+  const keywordOnChange = (e) => {
+    setKeyword(e.target.value);
   };
+  const searchClicked = () => {
+    navigate(`/search/${keyword}`);
+  };
+  const activeEnter = (e) => {
+    if (e.key === "Enter") {
+      searchClicked();
+    }
+  };
+
   return (
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -28,16 +38,17 @@ function Head({ isLoggedIn }) {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <InputGroup className="search-group">
-                <Form.Control type="text" placeholder="검색" />
+                <Form.Control
+                  type="text"
+                  placeholder="검색"
+                  value={keyword}
+                  onChange={keywordOnChange}
+                  onKeyDown={(e) => activeEnter(e)}
+                />
+
                 <Button
-                  className="searchBtnWrap"
-                  onclick={searchClicked}
-                  style={{
-                    cursor: "pointer",
-                    width: "50px",
-                    border: "1px solid #000000",
-                    borderRadius: "5px",
-                  }}
+                  className="search-btn"
+                  onClick={searchClicked}
                   variant="light"
                 >
                   <img src="/img/icon/search.png" style={{ width: "100%" }} />

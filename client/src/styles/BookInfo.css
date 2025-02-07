@@ -1,0 +1,17 @@
+/* BookInfo.js */
+.book-info-container {
+}
+
+.book-info-left {
+  width: 200px;
+}
+
+.bookImg {
+  height: 250px;
+  object-fit: contain;
+  width: 100%;
+}
+
+.book-info-right {
+  width: calc(100% - 200px);
+}

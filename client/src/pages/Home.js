@@ -13,23 +13,10 @@ function Home() {
       <Head isLoggedIn={true} />
       <section className="main-page">
         <Container>
-          <h3>인기 책</h3>
+          <h4>베스트셀러 책</h4>
           <BestSeller />
         </Container>
       </section>
-
-      {/* <h1>독서록 플랫폼에 오신 것을 환영합니다.</h1>
-      <p>책을 검색하고, 독서록을 작성해보세요.</p>
-      <div>
-        <form method="get" action="/search">
-          <input
-            type="text"
-            name="keyword"
-            placeholder="검색하고 싶은 책 제목을 입력해주세요."
-          />
-          <button type="submit">검색</button>
-        </form>
-      </div> */}
     </div>
   );
 }

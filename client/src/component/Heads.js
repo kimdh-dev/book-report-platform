@@ -9,8 +9,8 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/style.css";
 import { Link, useNavigate } from "react-router-dom";
+import styles from "./Heads.module.css";
 
 function Head({ isLoggedIn }) {
   const navigate = useNavigate();
@@ -32,7 +32,9 @@ function Head({ isLoggedIn }) {
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
           <Navbar.Brand>
-            <Link to="/">Book Report</Link>
+            <Link to="/" style={{ fontWeight: 600 }}>
+              Book Report
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -58,7 +60,7 @@ function Head({ isLoggedIn }) {
             <Nav>
               <Nav.Item>
                 <Nav.Link className="cursor">
-                  <div className="user">
+                  <div className={styles.user}>
                     <img
                       src="/img/icon/user.png"
                       alt="프로필"

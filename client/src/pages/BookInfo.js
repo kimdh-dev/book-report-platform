@@ -1,18 +1,19 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Head from "../component/Heads";
 import useSWR from "swr";
 import fetcher from "../lib/fetcher";
 import { Container } from "react-bootstrap";
-import "../styles/BookInfo.css";
+// import "../styles/BookInfo.css";
 import { Button } from "antd";
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import { useState } from "react";
+import styles from "./BookInfo.module.css";
 
 function BookInfo() {
   const [isHeart, setIsHeart] = useState(false);
 
-  const { id } = useParams();
-  const { data, error } = useSWR(`/api/books/info?isbn=${id}`, fetcher);
+  const { bookId } = useParams();
+  const { data, error } = useSWR(`/api/books/info?isbn=${bookId}`, fetcher);
   if (error) {
     return "error";
   }
@@ -43,11 +44,11 @@ function BookInfo() {
         <div className="row">
           <div className="col">
             <div className="row">
-              <div className="book-info-left">
-                <img src={book.cover} className="bookImg" />
+              <div className={styles.bookInfoLeft}>
+                <img src={book.cover} className={styles.bookImg} />
               </div>
               <div
-                className="book-info-right pt-3 ps-4"
+                className={`${styles.bookInfoRight} pt-3 ps-4`}
                 style={{ display: "inline-block" }}
               >
                 <h2 className="book-info-1">{book.title}</h2>
@@ -61,16 +62,13 @@ function BookInfo() {
                   <span>{book.categoryName}</span>
                 </div>
                 <div className="pt-4">
-                  {/* <HeartOutlined color="red" /> */}
-
                   <Button
                     className="me-4"
                     color="green"
                     variant="solid"
                     size="large"
-                    onClick={newReport}
                   >
-                    독후감 작성
+                    <Link to={`/report/write/${bookId}`}>독후감 작성</Link>
                   </Button>
                   <span style={{ position: "relative" }}>
                     좋아요

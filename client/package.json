@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.6.0",
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "antd": "^5.23.4",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "cra-template": "1.2.0",
+    "firebase": "^11.3.1",
     "http-proxy-middleware": "^3.0.3",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",

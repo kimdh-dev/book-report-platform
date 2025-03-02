@@ -27,6 +27,10 @@ function Head({ isLoggedIn }) {
     }
   };
 
+  const mypageClicked = () => {
+    navigate("/login");
+  };
+
   return (
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -65,6 +69,7 @@ function Head({ isLoggedIn }) {
                       src="/img/icon/user.png"
                       alt="프로필"
                       style={{ width: "40px", height: "40px" }}
+                      onClick={mypageClicked}
                     />
                   </div>
                 </Nav.Link>

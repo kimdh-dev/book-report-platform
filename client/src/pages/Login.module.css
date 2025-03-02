@@ -1,0 +1,22 @@
+.label {
+  width: 90px;
+}
+
+.googleAuth {
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 5px;
+  width: 250px;
+  border-radius: 15px;
+  border: 2px solid #e6e6e6;
+  cursor: pointer;
+  position: relative;
+  padding-left: 30px;
+}
+
+.googleImg {
+  width: 20px;
+  left: 10px;
+  top: 7px;
+  position: absolute;
+}

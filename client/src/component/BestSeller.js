@@ -23,8 +23,6 @@ function BestSeller() {
     return "loading";
   }
 
-  console.log(data);
-
   const onPageChange = (page, pageSize) => {
     setPage(page);
     setPageSize(pageSize);
@@ -34,7 +32,14 @@ function BestSeller() {
     <div>
       <Row>
         {data.item.map((book) => (
-          <Col xs={12} sm={6} md={4} lg={3} style={{ marginBottom: "20px" }}>
+          <Col
+            key={`${book.isbn13}-col`}
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            style={{ marginBottom: "20px" }}
+          >
             <Book
               key={book.isbn13}
               id={book.isbn13}

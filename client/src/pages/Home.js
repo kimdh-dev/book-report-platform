@@ -10,7 +10,7 @@ import BestSeller from "../component/BestSeller";
 function Home() {
   return (
     <div>
-      <Head isLoggedIn={true} />
+      <Head />
       <section className="main-page">
         <Container>
           <h4>베스트셀러 책</h4>

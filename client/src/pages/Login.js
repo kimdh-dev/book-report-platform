@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import Head from "../component/Heads";
 
@@ -18,11 +18,24 @@ import {
   where,
 } from "firebase/firestore";
 import db from "../api/firebseApi";
+import { useRecoilState } from "recoil";
+import { isLogin, loginId } from "../recoil/auth";
 
 function Login() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigate("/profile");
+      }
+    });
+
+    // Cleanup function to unsubscribe from the listener when the component unmounts
+    return () => unsubscribe();
+  }, [navigate]);
+
   const googleLogin = () => {
-    console.log("로그인 클릭");
     handleGoogleLogin();
   };
 
@@ -36,6 +49,7 @@ function Login() {
             collection(db, "users"),
             where("email", "==", data.user.email)
           );
+
           const result = await getCountFromServer(q);
           const count = result.data().count;
 
@@ -46,9 +60,9 @@ function Login() {
               regDate: Date.now(),
             });
           }
+          navigate("/");
+          // 로그인 처리
         }
-
-        navigate("/");
       })
       .catch((err) => {
         console.log(err);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -11,9 +11,24 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Heads.module.css";
+import { auth } from "../api/firebseAuth";
+import { useRecoilState } from "recoil";
+import { isLogin } from "../recoil/auth";
 
-function Head({ isLoggedIn }) {
+function Head() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUsername(user.displayName);
+      }
+    });
+
+    // Cleanup function to unsubscribe from the listener when the component unmounts
+    return () => unsubscribe();
+  }, [navigate]);
   const [keyword, setKeyword] = useState("");
   const keywordOnChange = (e) => {
     setKeyword(e.target.value);
@@ -28,7 +43,11 @@ function Head({ isLoggedIn }) {
   };
 
   const mypageClicked = () => {
-    navigate("/login");
+    if (username) {
+      navigate("/profile");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -68,9 +87,14 @@ function Head({ isLoggedIn }) {
                     <img
                       src="/img/icon/user.png"
                       alt="프로필"
-                      style={{ width: "40px", height: "40px" }}
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        marginRight: "5px",
+                      }}
                       onClick={mypageClicked}
                     />
+                    {username ? username + "님" : "로그인"}
                   </div>
                 </Nav.Link>
               </Nav.Item>

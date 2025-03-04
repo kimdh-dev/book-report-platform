@@ -7,6 +7,7 @@ import Search from "./pages/Search";
 import BookInfo from "./pages/BookInfo";
 import ReportWrite from "./pages/ReportWrite";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 function App() {
   return (
     <div className="App">
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/search/:keyword" element={<Search />} />
         <Route path="/bookInfo/:bookId" element={<BookInfo />} />
         <Route path="/report/write/:bookId" element={<ReportWrite />} />
